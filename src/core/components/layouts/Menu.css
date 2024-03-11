@@ -1,0 +1,58 @@
+/* Menu.css */
+
+.navbar {
+    background-color: #00d9ff; /* Couleur de fond bleue pour la navbar */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .app-name {
+    font-size: 24px;
+    color: #fff; /* Couleur du texte en blanc */
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .sign-up-button,
+  .sign-in-button {
+    background-color: #fff; /* Couleur de fond des boutons en blanc */
+    color: #00d9ff; /* Couleur du texte des boutons en bleu */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .sign-up-button:hover,
+  .sign-in-button:hover {
+    background-color: #00d9ff;
+    color: #fff;
+  }
+
+  .panier-button {
+    background-color: #fff;
+    color: #00d9ff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .panier-button:hover {
+    background-color: #00d9ff;
+    color: #fff;
+  }
+  

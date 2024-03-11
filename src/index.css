@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background-image: url("../public/images/homeeee.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.products-container{
+    background-image: url("../public/images/products.jpg");
+}
+
+.login-container{
+  background-image: url("../public/images/loginRegister.jpg");
+}
+
+.listprod-container {
+  background-image: url("../public/images/listProd.jpg");
+}
+
+.listuse-container {
+  background-image: url("../public/images/gestuse.jpg");
+}
+
+.cart-container {
+    background-image: url("../public/images/panier.jpg");
+}
+
+.profil-container {
+  background-image: url("../public/images/profil.jpg");
+}
+
+.centered-content {
+  text-align: center;
+  color: white;
+}
+
+.putprod-container {
+    background-image: url("../public/images/putprod.jpg");
+}
+
+.logo {
+  background: red;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+}

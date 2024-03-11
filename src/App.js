@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Menu from './core/components/layouts/Menu';
+// import SportLeagueRoutes from './core/routes/SportLeagueRoutes';
 import './App.css';
+import Footer from './core/components/layouts/Footer';
+import { UserContext } from './core/context/AuthContext';
 
 function App() {
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('USER')));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={[user, setUser]}>
+      <BrowserRouter>
+        <Menu />
+        {/* <SportLeagueRoutes /> */}
+        <Footer />
+      </BrowserRouter>
+    </UserContext.Provider>
   );
 }
 
