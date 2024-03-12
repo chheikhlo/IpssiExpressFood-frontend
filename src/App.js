@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Menu from './core/components/layouts/Menu';
-// import SportLeagueRoutes from './core/routes/SportLeagueRoutes';
+import IEFRoutes from './core/routes/IEF-Routes';
 import './App.css';
 import Footer from './core/components/layouts/Footer';
 import { UserContext } from './core/context/AuthContext';
@@ -13,7 +13,7 @@ function App() {
     <UserContext.Provider value={[user, setUser]}>
       <BrowserRouter>
         <Menu />
-        {/* <SportLeagueRoutes /> */}
+        <IEFRoutes />
         <Footer />
       </BrowserRouter>
     </UserContext.Provider>

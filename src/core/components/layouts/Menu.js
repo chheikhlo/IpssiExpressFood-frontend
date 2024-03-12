@@ -21,7 +21,7 @@ const Menu = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Link to={'/'} className="nav-link">Home</Link>
-                        <Link to={'/our-products'} className="nav-link">Menu</Link>
+                        <Link to={'/menu'} className="nav-link">Menu</Link>
                     </Nav>
                     <Nav className="ms-auto">
                         {user ?
@@ -39,6 +39,9 @@ const Menu = () => {
                         {user && user.roles.length === 2 &&
                             <Link to={`/users`} className="nav-link"><FaCog /> Gérer Users</Link>
                         }
+                        {/* {user && user.roles.length > 2 &&
+                            <Link to={`/delivery`} className="nav-link"><FaCog /> A Livrer</Link>
+                        } */}
                         {user &&
                             <Link to={`/profil/${user?._id}`} className="nav-link"><FaUser /> Profil</Link>
                         }
