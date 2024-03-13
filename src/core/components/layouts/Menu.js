@@ -45,7 +45,7 @@ const Menu = () => {
                         {user &&
                             <Link to={`/profil/${user?._id}`} className="nav-link"><FaUser /> Profil</Link>
                         }
-                        {user ?
+                        {user.roles === "Client" ?
                             <div>
                                 <Link to={`/order/${user._id}`}>
                                     <Button className="btn btn-secondary"><FaShoppingCart />Commandes  </Button>
