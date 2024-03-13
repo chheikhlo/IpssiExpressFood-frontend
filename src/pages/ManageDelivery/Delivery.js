@@ -5,7 +5,7 @@ import api from '../../services/api';
 import { UserContext } from "../../core/context/AuthContext";
 
 
-const Order = () => {
+const Delivery = () => {
     const [ user ] = useContext(UserContext);
     const [orderItems, setOrderItems] = useState([]);
     const { id } = useParams();
@@ -67,7 +67,6 @@ const Order = () => {
                             <th>Food</th>
                             <th>Type</th>
                             <th>Prix</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,7 +75,6 @@ const Order = () => {
                                 <td>{item.nom}</td>
                                 <td>{item.type_food}</td>
                                 <td>{item.prix} €</td>
-                                <td>{item.statut}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -86,4 +84,4 @@ const Order = () => {
     );
 };
 
-export default Order;
+export default Delivery;

@@ -24,15 +24,15 @@ code {
   background-position: center;
 }
 
-.dishes-container{
+/* .dishes-container{
     background-image: url("../public/images/products.jpg");
-}
+} */
 
 .login-container{
   background-image: url("../public/images/loginRegister.jpg");
 }
 
-.listprod-container {
+/* .listprod-container {
   background-image: url("../public/images/listProd.jpg");
 }
 
@@ -42,20 +42,20 @@ code {
 
 .cart-container {
     background-image: url("../public/images/panier.jpg");
-}
+} */
 
-.profil-container {
+/* .profil-container {
   background-image: url("../public/images/profil.jpg");
-}
+} */
 
 .centered-content {
   text-align: center;
   color: white;
 }
 
-.putprod-container {
+/* .putprod-container {
     background-image: url("../public/images/putprod.jpg");
-}
+} */
 
 .logo {
   background: red;

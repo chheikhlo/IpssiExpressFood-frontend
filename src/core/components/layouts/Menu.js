@@ -33,15 +33,15 @@ const Menu = () => {
                             <Link to={'/signin'} className="nav-link"><FaUser /> Se connecter</Link>
                         }
                         &nbsp;&nbsp;&nbsp;
-                        {user && user.roles.length === 2 &&
+                        {user && user.roles === "Admin" &&
                             <Link to={`/dishes`} className="nav-link"><FaCog /> Gérer Plats</Link>
                         }
-                        {user && user.roles.length === 2 &&
+                        {user && user.roles === "Admin" &&
                             <Link to={`/users`} className="nav-link"><FaCog /> Gérer Users</Link>
                         }
-                        {/* {user && user.roles.length > 2 &&
+                        {user && user.roles === "Livreur" &&
                             <Link to={`/delivery`} className="nav-link"><FaCog /> A Livrer</Link>
-                        } */}
+                        }
                         {user &&
                             <Link to={`/profil/${user?._id}`} className="nav-link"><FaUser /> Profil</Link>
                         }

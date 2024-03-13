@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css';
-import axios from 'axios';
+import api from "../../services/api";
 import bcrypt from 'bcryptjs';
 
 const Register = () => {
@@ -18,7 +18,7 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (formData.telephone.length !== 9) {
+        if (formData.numero.length !== 9) {
             alert("Le numéro de téléphone doit contenir 9 chiffres.");
             return;
         }
@@ -30,7 +30,7 @@ const Register = () => {
             mot_de_passe: hashedPassword,
         });
 
-        axios.post('http://10.0.50.27:9000/user/register', formData)
+        api.post('/user/register', formData)
             .then(resp => {
                 if (resp.status === 200) {
                     alert("Inscription réussie!");
@@ -78,12 +78,12 @@ const Register = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="telephone">Téléphone :</label>
+                        <label htmlFor="numero">Numéro :</label>
                         <input
                             type="tel"
-                            id="telephone"
-                            name="telephone"
-                            value={formData.telephone || ""}
+                            id="numero"
+                            name="numero"
+                            value={formData.numero || ""}
                             onChange={handleInputChange}
                             required
                         />
@@ -106,6 +106,17 @@ const Register = () => {
                             id="mot_de_passe"
                             name="mot_de_passe"
                             value={formData.mot_de_passe || ""}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="adress">Adresse :</label>
+                        <input
+                            type="text"
+                            id="adress"
+                            name="adress"
+                            value={formData.adress || ""}
                             onChange={handleInputChange}
                             required
                         />

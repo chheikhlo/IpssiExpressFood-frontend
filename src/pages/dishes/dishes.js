@@ -14,7 +14,7 @@ const Dishes = () => {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-        api.get('/dishes')
+        api.get('/foods')
             .then(response => {
                 setDishes(response.data);
             })
@@ -68,7 +68,7 @@ const Dishes = () => {
                                     onClick={() => handleAddToCart(dish._id)}
 
                                 >
-                                    Add To Cart
+                                    Commander
                                 </Button> :
                                 <></>
                             }
