@@ -9,6 +9,7 @@ import Register from '../../pages/authentification/Register'
 import PutDish from '../../pages/ManageDish/PutDish'
 import DeleteDish from '../../pages/ManageDish/DeleteDish'
 import Dishes from '../../pages/dishes/dishes'
+import Delivery from '../../pages/ManageDelivery/Delivery'
 
 export default function IEFRoutes() {
     return (
@@ -23,6 +24,7 @@ export default function IEFRoutes() {
             <Route path="/order/:id" element={<Order></Order>} />
             <Route path="/Signin" element={<Login></Login>} />
             <Route path="/Signup" element={<Register></Register>} />
+            <Route path='/delivery/:id' element={<Delivery></Delivery>} />
         </Routes>
     )
 }

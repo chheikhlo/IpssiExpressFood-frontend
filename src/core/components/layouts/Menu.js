@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/AuthContext";
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { FaShoppingCart, FaUser, FaSignOutAlt, FaCog } from 'react-icons/fa';
 
 const Menu = () => {
@@ -40,7 +40,7 @@ const Menu = () => {
                             <Link to={`/users`} className="nav-link"><FaCog /> Gérer Users</Link>
                         }
                         {user && user.roles === "Livreur" &&
-                            <Link to={`/delivery`} className="nav-link"><FaCog /> A Livrer</Link>
+                            <Link to={`/delivery/${user._id}`} className="nav-link"><FaCog /> A Livrer</Link>
                         }
                         {user &&
                             <Link to={`/profil/${user?._id}`} className="nav-link"><FaUser /> Profil</Link>
