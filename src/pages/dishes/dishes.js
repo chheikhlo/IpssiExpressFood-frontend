@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Dishes = () => {
     const [dishes, setDishes] = useState([]);
-    const [ user ] = useContext(UserContext);
+    const [user] = useContext(UserContext);
     const navigate = useNavigate();
 
     // Les Alerts
@@ -52,32 +52,30 @@ const Dishes = () => {
                     </Alert>
                 )}
             </div>
-            <div className="d-flex flex-wrap">
-                {dishes.map((dish) => (
-                    <Card key={dish._id} style={{ width: '18rem', margin: '1rem' }}>
-                        <Card.Img variant="top" src={`images/${dish.image}`} alt={dish.nom} />
-                        <Card.Body>
-                            <Card.Title>{dish.nom}</Card.Title>
-                            <Card.Text>Sport: {dish.sport} </Card.Text>
-                            <Card.Text>Qte: {dish.quantite} </Card.Text>
-                            <Card.Text>Price: {dish.prix} €</Card.Text>
-                            {user ?
-
-                                <Button
-                                    variant="primary"
-                                    onClick={() => handleAddToCart(dish._id)}
-
-                                >
-                                    Commander
-                                </Button> :
-                                <></>
-                            }
-                        </Card.Body>
-                    </Card>
+            <div className="d-flex flex-wrap justify-content-center text-center">
+                {dishes.map((dish, index) => (
+                    <div key={dish._id} style={{ width: '40%', padding: '0.5rem' }}>
+                        <Card style={{ width: '60%' }}>
+                            <Card.Img variant="top" src={`images/${dish.image}`} alt={dish.nom} />
+                            <Card.Body>
+                                <Card.Title>{dish.nom}</Card.Title>
+                                <Card.Text>Type: {dish.type_food} </Card.Text>
+                                <Card.Text>Price: {dish.prix} €</Card.Text>
+                                {user && user.roles === "Client" ?
+                                    <Button
+                                        variant="primary"
+                                        onClick={() => handleAddToCart(dish._id)}
+                                    >
+                                        Commander
+                                    </Button> :
+                                    <></>
+                                }
+                            </Card.Body>
+                        </Card>
+                    </div>
                 ))}
             </div>
         </div>
-
     );
 };
 
