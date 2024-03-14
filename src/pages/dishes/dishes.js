@@ -23,9 +23,9 @@ const Dishes = () => {
             });
     }, []);
 
-    const handleAddToCart = (dishId) => {
+    const handleAddToCart = (foodId) => {
         if (user != null) {
-            api.post('/add/dish/order', { utilisateur_id: user._id, produit_id: dishId })
+            api.post('/commandes/addFoodToCommand', { client_id: user._id, foods_id: [foodId], temps_estime_livraison: Math.floor(Math.random() * 21) })
                 .then(resp => {
                     setOpen(true);
                     setAlertMessage("Produit Ajouter aux commandes");
