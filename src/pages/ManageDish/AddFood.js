@@ -1,53 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
-const PutDish = () => {
-    const { id } = useParams();
-    const [dish, setDish] = useState({});
+const AddFood = () => {
+    const [food, setFood] = useState({});
 
     // Les Alerts
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
-    useEffect(() => {
-        api.get(`/dishes/dish-details/${id}`)
-            .then(resp => {
-                setDish(resp.data[0]);
-                console.log(dish);
-                setOpen(false);
-            })
-            .catch(error => {
-                console.error('Error fetching dish details:', error);
-            });
-    }, [id]);
-
-    const handleInputChange = (e) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setDish({ ...dish, [name]: value });
+        setFood({ ...food, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         api.put(`/foods/admin/put/food/${id}`, dish)
+        try {
+            await api.post('/foods/admin/add/food', food)
                 .then(resp => {
                     setOpen(true);
-                    setAlertMessage("Plat Modifier avec succès !");
-                    setDish(resp.data);
-                    console.log(resp.data);
+                    setAlertMessage("Plat Ajouter avec succès !");
                 })
                 .catch(error => {
                     setOpen(true);
-                    setAlertMessage("Erreur lors de la modification du plat");
-                    console.error('Error fetching dish details:', error);
+                    setAlertMessage("Erreur lors de l'ajout du nouveau food");
                 });
 
+        } catch (error) {
+            console.error('Error adding food:', error);
+        }
     };
 
     return (
-
-        <div className="putprod-container">
+        <>
             <div>
                 {open && (
                     <Alert variant="success" onClose={() => setOpen(false)} dismissible>
@@ -56,60 +42,60 @@ const PutDish = () => {
                 )}
             </div>
             <Container className="mt-5">
-                <h1 className="mb-4">Edit Dish</h1>
+                <h1 className="mb-4">Add a food</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Nom du plat</Form.Label>
+                        <Form.Label>Nom du food </Form.Label>
                         <Form.Control
                             type="text"
                             name="nom"
-                            value={dish.nom}
-                            onChange={handleInputChange}
+                            value={food.nom}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>description</Form.Label>
+                        <Form.Label>Description </Form.Label>
                         <Form.Control
                             type="text"
                             name="description"
-                            value={dish.description}
-                            onChange={handleInputChange}
+                            value={food.description}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Prix</Form.Label>
+                        <Form.Label>prix</Form.Label>
                         <Form.Control
                             type="number"
                             name="prix"
-                            value={dish.prix}
-                            onChange={handleInputChange}
+                            value={food.prix}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Image</Form.Label>
+                        <Form.Label>Type food (plat/dessert)</Form.Label>
                         <Form.Control
                             type="text"
                             name="type_food"
-                            value={dish.type_food}
-                            onChange={handleInputChange}
+                            value={food.type_food}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>photo</Form.Label>
+                        <Form.Label>Photo </Form.Label>
                         <Form.Control
                             type="text"
                             name="photo"
-                            value={dish.photo}
-                            onChange={handleInputChange}
+                            value={food.photo}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Update dish
+                        Add food
                     </Button>
                 </Form>
             </Container>
-        </div>
+        </>
     );
 };
 
-export default PutDish;
+export default AddFood;

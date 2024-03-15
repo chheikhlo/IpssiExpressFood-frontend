@@ -55,7 +55,7 @@ const Dishes = () => {
                 {dishes.map((dish, index) => (
                     <div key={dish._id} style={{ width: '40%', padding: '0.5rem' }}>
                         <Card style={{ width: '60%' }}>
-                            <Card.Img variant="top" src={`images/${dish.image}`} alt={dish.nom} />
+                            <Card.Img variant="top" src={`images/${dish.photo}`} alt={dish.nom} />
                             <Card.Body>
                                 <Card.Title>{dish.nom}</Card.Title>
                                 <Card.Text>Type: {dish.type_food} </Card.Text>

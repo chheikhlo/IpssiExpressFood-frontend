@@ -1,34 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import api from '../../services/api';
 
-const AddDish = () => {
-    const [dish, setDish] = useState({});
+const PutUsers = () => {
+    const { id } = useParams();
+    const [product, setProduct] = useState({});
 
     // Les Alerts
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
-    const handleChange = (e) => {
+    useEffect(() => {
+        api.get(`/products/${id}`)
+            .then(response => {
+                setProduct(response.data);
+                setOpen(false);
+            })
+            .catch(error => {
+                console.error('Error fetching product details:', error);
+            });
+    }, [id]);
+
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setDish({ ...dish, [name]: value });
+        setProduct({ ...product, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/admin/add/dish', dish)
+            await api.put(`/admin/put/product/${id}`, product)
                 .then(resp => {
                     setOpen(true);
-                    setAlertMessage("Plat Ajouter avec succès !");
+                    setAlertMessage("Produit Modifier avec succès !");
+                    setProduct(resp.data);
                 })
                 .catch(error => {
                     setOpen(true);
-                    setAlertMessage("Erreur lors de l'ajout du nouveau produit");
+                    setAlertMessage("Erreur lors de la modification du produit");
+                    console.error('Error fetching product details:', error);
                 });
 
         } catch (error) {
-            console.error('Error adding dish:', error);
+            console.error('Error updating product:', error);
         }
     };
 
@@ -42,42 +57,42 @@ const AddDish = () => {
                 )}
             </div>
             <Container className="mt-5">
-                <h1 className="mb-4">Can you Add a dish</h1>
+                <h1 className="mb-4">Edit Product</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
-                        <Form.Label>Nom du produit </Form.Label>
+                        <Form.Label>Nom du produit</Form.Label>
                         <Form.Control
                             type="text"
                             name="nom"
-                            value={dish.nom}
-                            onChange={handleChange}
+                            value={product.nom}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>prix</Form.Label>
+                        <Form.Label>Prix</Form.Label>
                         <Form.Control
                             type="number"
                             name="prix"
-                            value={dish.prix}
-                            onChange={handleChange}
+                            value={product.prix}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Image </Form.Label>
+                        <Form.Label>Image</Form.Label>
                         <Form.Control
                             type="text"
                             name="image"
-                            value={dish.image}
-                            onChange={handleChange}
+                            value={product.image}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>quantite </Form.Label>
+                        <Form.Label>quantite</Form.Label>
                         <Form.Control
                             type="number"
                             name="quantite"
-                            value={dish.quantite}
-                            onChange={handleChange}
+                            value={product.quantite}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -85,12 +100,12 @@ const AddDish = () => {
                         <Form.Control
                             type="text"
                             name="sport"
-                            value={dish.sport}
-                            onChange={handleChange}
+                            value={product.sport}
+                            onChange={handleInputChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Add dish
+                        Update Product
                     </Button>
                 </Form>
             </Container>
@@ -98,4 +113,4 @@ const AddDish = () => {
     );
 };
 
-export default AddDish;
+export default PutUsers;
