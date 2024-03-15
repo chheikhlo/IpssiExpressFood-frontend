@@ -16,11 +16,11 @@ const Menu = () => {
     return (
         <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
-                <Link to="/"><Navbar.Brand >IEF Eat</Navbar.Brand></Link>
+                <Link to="/" style={{textDecoration: 'none'}}><Navbar.Brand >IEF Eat</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to={'/'} className="nav-link">Home</Link>
+                        <Link to={'/'} className="nav-link">Accueil</Link>
                         <Link to={'/menu'} className="nav-link">Menu</Link>
                     </Nav>
                     <Nav className="ms-auto">

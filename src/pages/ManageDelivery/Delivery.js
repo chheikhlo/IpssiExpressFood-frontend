@@ -32,8 +32,10 @@ const Delivery = () => {
                         totalPrice: orderPrice,
                         orderId: order._id,
                         clientName: `${userResponse.data[0].nom} ${userResponse.data[0].prenom}`,
+                        adress: `${userResponse.data[0].adress}`,
+                        numero: `${userResponse.data[0].numero}`,
                         status: order.statut,
-                        isDelivered: false // Ajout de la propriété isDelivered
+                        isDelivered: false 
                     });
                     totalPrice += orderPrice;
                 }
@@ -80,7 +82,7 @@ const Delivery = () => {
                     <tbody>
                         {orderItems.map((item, index) => (
                             <tr key={index}>
-                                <td>{item.clientName}</td>
+                                <td>Nom: {item.clientName} <br/> Adresse: {item.adress} <br/> Numero: {item.numero}</td>
                                 <td>{item.foods}</td>
                                 <td>{item.totalPrice.toFixed(2)} €</td>
                                 <td>{item.status}</td>
