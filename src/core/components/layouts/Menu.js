@@ -48,7 +48,7 @@ const Menu = () => {
                         {user && user.roles === "Client" ?
                             <div>
                                 <Link to={`/order/${user._id}`}>
-                                    <Button className="btn btn-secondary"><FaShoppingCart />Commandes  </Button>
+                                    <Button className="btn btn-secondary"><FaShoppingCart />Panier  </Button>
                                 </Link>
                             </div> :
                             <></>

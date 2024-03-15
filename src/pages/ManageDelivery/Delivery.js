@@ -4,13 +4,10 @@ import { Button, Table } from 'react-bootstrap';
 import api from '../../services/api';
 import { UserContext } from "../../core/context/AuthContext";
 
-
 const Delivery = () => {
     const [user] = useContext(UserContext);
     const [orderItems, setOrderItems] = useState([]);
-    const [statutOrderItems, setStatutOrderItems] = useState("");
     const [totalPrice, setTotalPrice] = useState(0);
-    const [deliveryFrais, setDeliveryFrais] = useState(0);
     const { id } = useParams();
 
     useEffect(() => {
@@ -18,32 +15,32 @@ const Delivery = () => {
             try {
                 const response = await api.get(`/livreur/get/order/${id}`);
                 const orders = response.data;
-                console.log('commandess', orders);
-                console.log('commandess', orders.length);
 
-                setStatutOrderItems(orders.statut);
                 const updatedOrders = [];
                 let totalPrice = 0;
-                // for (const order of orders) {
-                for (const foodId of orders.foods_id) {
-                    const foodResponse = await api.get(`/foods/get/food/${foodId}`);
-                    updatedOrders.push(foodResponse.data);
-                    totalPrice += foodResponse.data.prix;
-                    // }
-
+                for (const order of orders) {
+                    const foodNames = [];
+                    let orderPrice = 0;
+                    for (const foodId of order.foods_id) {
+                        const foodResponse = await api.get(`/foods/get/food/${foodId}`);
+                        foodNames.push(foodResponse.data.nom);
+                        orderPrice += foodResponse.data.prix;
+                    }
+                    const userResponse = await api.get(`/users/${order.client_id}`);
+                    updatedOrders.push({
+                        foods: foodNames.join(" - "),
+                        totalPrice: orderPrice,
+                        orderId: order._id,
+                        clientName: `${userResponse.data[0].nom} ${userResponse.data[0].prenom}`,
+                        status: order.statut,
+                        isDelivered: false // Ajout de la propriété isDelivered
+                    });
+                    totalPrice += orderPrice;
                 }
-
-
 
                 setOrderItems(updatedOrders);
                 setTotalPrice(totalPrice);
 
-                // Calcul des frais de livraison
-                if (totalPrice >= 19.99) {
-                    setDeliveryFrais(0);
-                } else {
-                    setDeliveryFrais(totalPrice / 5);
-                }
             } catch (error) {
                 console.error('Erreur lors de la récupération des commandes :', error);
             }
@@ -52,52 +49,51 @@ const Delivery = () => {
         fetchOrderItems();
     }, []);
 
-    const handleConfirmDelivery = async () => {
-        // try {
-        // await api.delete(`/delete/order/${user._id}`);
-        // window.location.href = '/menu';
-        // } catch (error) {
-        //     console.error('Error deleting:', error);
-        // }
+    const handleConfirmDelivery = async (orderId, index) => {
+        try {
+            await api.delete(`/commandes/delete/order/${orderId}`, { statut: "Livré" });
+
+            const updatedOrders = [...orderItems];
+            updatedOrders[index].status = "Livré";
+            updatedOrders[index].isDelivered = true;
+            setOrderItems(updatedOrders);
+        } catch (error) {
+            console.error('Erreur lors de la confirmation de la livraison :', error);
+        }
     };
 
     return (
         <div className="order-container">
             <div className="container mt-5">
-                <h2>Frais de livraison: {deliveryFrais > 0 ? deliveryFrais : 0} €</h2>
-                <h2>Status: {statutOrderItems} </h2>
+                <h2>A livrer</h2>
 
                 <Table striped bordered hover responsive>
                     <thead>
                         <tr>
+                            <th>Client</th>
                             <th> Détails commandes</th>
                             <th>Prix</th>
+                            <th>Statut</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Affichage de chaque aliment dans une ligne distincte */}
-                        {orderItems.map(item => (
-                            <tr key={item._id}>
-                                <td>{item.nom}</td>
-                                <td>{item.prix} €</td>
+                        {orderItems.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.clientName}</td>
+                                <td>{item.foods}</td>
+                                <td>{item.totalPrice.toFixed(2)} €</td>
+                                <td>{item.status}</td>
+                                <td>
+                                    <Button variant="primary" onClick={() => handleConfirmDelivery(item.orderId, index)} disabled={item.isDelivered}>Confirmer commande</Button>
+                                </td>
                             </tr>
                         ))}
-                        {/* Ligne pour le total de la commande */}
-                        <tr>
-                            <td colSpan="2" style={{ textAlign: "center", }}>Total: {totalPrice.toFixed(2)} €</td>
-                        </tr>
-                        {/* Ligne pour valider la livraison */}
-                        <tr>
-                            <td colSpan="2">
-                                <Button variant="primary" onClick={() => handleConfirmDelivery()}>Confirmer livraison</Button>
-                            </td>
-                        </tr>
                     </tbody>
                 </Table>
             </div>
         </div>
     );
-
 };
 
 export default Delivery;

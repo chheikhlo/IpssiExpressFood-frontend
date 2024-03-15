@@ -9,7 +9,6 @@ const Dishes = () => {
     const [user] = useContext(UserContext);
     const navigate = useNavigate();
 
-    // Les Alerts
     const [open, setOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
 
@@ -28,7 +27,7 @@ const Dishes = () => {
             api.post('/commandes/addFoodToCommand', { client_id: user._id, foods_id: [foodId], temps_estime_livraison: Math.floor(Math.random() * 21) })
                 .then(resp => {
                     setOpen(true);
-                    setAlertMessage("Produit Ajouter aux commandes");
+                    setAlertMessage("Commande ajoutée au panier");
                     setTimeout(() => {
                         window.location.reload();
                     }, 3000);
